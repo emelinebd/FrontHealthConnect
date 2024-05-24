@@ -23,5 +23,5 @@ jobs:
       # Build and push Docker images for each service
       - name: Build and Push API Service Image
         run: |
-          docker build -t  ${{ secrets.DOCKERHUB_USERNAME }}/frontHealthConnect:latest .
-          docker push  ${{ secrets.DOCKERHUB_USERNAME }}/frontHealthConnect:latest
+          docker build -t  ${{ secrets.DOCKERHUB_USERNAME }}/fronthealthconnect:latest .
+          docker push  ${{ secrets.DOCKERHUB_USERNAME }}/fronthealthconnect:latest
