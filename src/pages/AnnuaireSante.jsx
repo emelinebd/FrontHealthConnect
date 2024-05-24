@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const AnnuaireSante = () => {
   const [locality, setLocality] = useState('');
   const [specialty, setSpecialty] = useState('');
@@ -11,12 +10,15 @@ const AnnuaireSante = () => {
 
     // Remplacez l'URL par celle de votre API
     try {
-      const response = await axios.get('https://api.example.com/professionals', {
-        params: {
-          locality,
-          specialty,
+      const response = await axios.get(
+        'https://api.example.com/professionals',
+        {
+          params: {
+            locality,
+            specialty,
+          },
         },
-      });
+      );
       setResults(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -55,7 +57,8 @@ const AnnuaireSante = () => {
         <ul>
           {results.map((professional) => (
             <li key={professional.id}>
-              {professional.name} - {professional.specialty} - {professional.locality}
+              {professional.name} - {professional.specialty} -{' '}
+              {professional.locality}
             </li>
           ))}
         </ul>
