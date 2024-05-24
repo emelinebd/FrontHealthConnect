@@ -25,3 +25,15 @@ jobs:
         run: |
           docker build -t  ${{ secrets.DOCKERHUB_USERNAME }}/fronthealthconnect:latest .
           docker push  ${{ secrets.DOCKERHUB_USERNAME }}/fronthealthconnect:latest
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: SSH into VPS and deploy
+        run: |
+          sshpass -p ${{ secrets.VPS_PASSWORD }} ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} 'bash -s' << 'EOF'
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fronthealthconnect:latest
+          docker stop fronthealthconnect || true
+          docker rm fronthealthconnect || true
+          docker run -d --name fronthealthconnect -p 80:5173 ${{ secrets.DOCKERHUB_USERNAME }}/fronthealthconnect:latest
+          EOF
